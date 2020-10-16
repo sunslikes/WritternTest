@@ -1,4 +1,4 @@
-package top.sunslikes.test;
+package top.sunslikes.test.exam;
 
 import java.io.*;
 import java.util.*;

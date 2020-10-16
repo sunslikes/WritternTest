@@ -1,4 +1,4 @@
-package top.sunslikes.test;
+package top.sunslikes.test.exam;
 
 import java.util.ArrayList;
 import java.util.List;

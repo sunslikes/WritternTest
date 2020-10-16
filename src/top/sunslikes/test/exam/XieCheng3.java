@@ -1,9 +1,9 @@
-package top.sunslikes.test;
+package top.sunslikes.test.exam;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Scanner;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+import jdk.nashorn.internal.runtime.logging.Logger;
+
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -23,14 +23,15 @@ import java.util.regex.Pattern;
 public class XieCheng3 {
     // 数组
     private static final HashMap<String, ArrayList<Integer>> arrayListHashMap = new HashMap<>();
-    private static Pattern pattern = Pattern.compile("[0,9]+");
 
 
     /*请完成下面这个函数，实现题目要求的功能
     当然，你也可以不按照下面这个模板来作答，完全按照自己的想法来 ^-^
     ******************************开始写代码******************************/
     static int validateArrayUsages(String[] lines) {
+        int count = 0;
         for (String line : lines) {
+            count++;
             String[] fuzhi = line.split("=");
             // 说明是定义
             if (fuzhi.length < 2) {
@@ -39,24 +40,75 @@ public class XieCheng3 {
                 // 用0填满
                 arrayListHashMap.put(dingyi[0], new ArrayList<>(Collections.nCopies(length, 0)));
                 continue;
+            } else {
+                if (!judge(line)) {
+                    System.out.println(count + " error:" + line);
+                    return count;
+                }
             }
-
         }
         return 0;
     }
     // 判断赋值语句
-    private boolean judge(String line) {
-        if (calculate(line) == null) {
+    private static boolean judge(String line) {
+        if (!calculate(line)) {
             return false;
         }
         return true;
     }
     // 计算a[0]=1
-    private Integer calculate(String line) {
-        // 先默认都是0吧。。。实际赋值就不做先
-        String[]
+    private static boolean calculate(String line) {
+        // 开始判断赋值
+        String[] exp = line.split("=");
+        System.out.println("exp[0]: " + exp[0]);
+        System.out.println("exp[1]: " + exp[1]);
+        String name = exp[0].split("\\[")[0];
+        String tmp = exp[0].split("\\[", 2)[1];
+        Integer inner = getInner(tmp.substring(0, tmp.length() - 1));
+        ArrayList<Integer> integers = arrayListHashMap.get(name);
+        // 没有声明
+        if (integers == null) {
+            return false;
+        }
+        // 数组越界
+        if (inner == null || inner >= integers.size()) {
+            return false;
+        }
+        Integer value = null;
+        // 获取具体的值
+        System.out.println();
+        if (exp[1].matches("\\d+")) {
+            // 说明是具体的值
+            value = Integer.parseInt(exp[1]);
+        } else {
+            value = getInner(exp[1]);
+        }
+        if (value == null) {
+            return false;
+        }
+        integers.set(inner, value);
+        return true;
     }
-    private Integer calculate
+    // 获取a[a[]]里面的a[]
+    private static Integer getInner(String inner) {
+        // 递归到数字了
+        if (inner.matches("\\d+")) {
+            return Integer.parseInt(inner);
+        }
+        String[] strings = inner.split("\\[");
+        ArrayList<Integer> integers = arrayListHashMap.get(strings[0]);
+        // 数组未声明
+        if (integers == null) {
+            return null;
+        }
+        Integer index = getInner(strings[1].substring(0,
+                strings[1].length() - 1));
+        // 数组越界或者里面的越界
+        if (index == null || index >= integers.size()) {
+            return null;
+        }
+        return integers.get(index);
+    }
     /******************************结束写代码******************************/
 
 
@@ -76,7 +128,6 @@ public class XieCheng3 {
             }
             _lines[_lines_i] = _lines_item;
         }
-
         res = validateArrayUsages(_lines);
         System.out.println(String.valueOf(res));
 

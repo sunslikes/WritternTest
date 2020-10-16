@@ -1,4 +1,4 @@
-package top.sunslikes.test;
+package top.sunslikes.test.practice;
 
 import java.util.Scanner;
 
