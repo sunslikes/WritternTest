@@ -29,14 +29,14 @@ public class QuickSort {
             // 找到比标志位小的放到左边
             for (; j > i; j--) {
                 if (ints[j] < symbol) {
-                    swap(ints, i, j);
+                    ints[i] = ints[j];
                     break;
                 }
             }
             // 找到比标志位大的放到右边
             for (; i < j; i++) {
                 if (ints[i] > symbol) {
-                    swap(ints, i, j);
+                    ints[j] = ints[i];
                     break;
                 }
             }
@@ -46,9 +46,4 @@ public class QuickSort {
         sort(ints, i + 1, end);
     }
 
-    public static void swap(int[] ints, int x, int y) {
-        int tmp = ints[x];
-        ints[x] = ints[y];
-        ints[y] = tmp;
-    }
 }
