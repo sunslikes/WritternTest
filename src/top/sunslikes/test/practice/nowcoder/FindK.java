@@ -15,22 +15,19 @@ public class FindK {
     public int findKth(int[] a, int n, int K) {
         return findKth(a, 0, n - 1, K);
     }
+    // 从大往小排
     public static int quickSortOnce(int[] a, int start, int end) {
 
         int plv = a[start];
         int i = start;
         int j = end;
         while(i < j) {
-            for (; i < j; --j) {
-                if (a[j] < plv) {
-                    break;
-                }
+            while (i < j && a[j] <= plv) {
+                j--;
             }
             a[i] = a[j];
-            for (; i < j; ++i) {
-                if (a[i] > plv) {
-                    break;
-                }
+            while (i < j && a[i] >= plv) {
+                i++;
             }
             a[j] = a[i];
         }
@@ -52,22 +49,10 @@ public class FindK {
             return findKth(a, middle + 1, end, K);
         }
     }
-    public static void quickSort(int[] a, int start, int end){
-        int i = quickSortOnce(a, start, end);
-
-        if(0<i-1) quickSort(a,0,i-1);
-        if(i+1<end)quickSort(a,i+1,end);
-    }
 
     public static void main(String[] args) {
         int[] a = {1332802,1177178,1514891,871248,753214,123866,1615405,328656,1540395,968891,1884022,252932,1034406,1455178,821713,486232,860175,1896237,852300,566715,1285209,1845742,883142,259266,520911,1844960,218188,1528217,332380,261485,1111670,16920,1249664,1199799,1959818,1546744,1904944,51047,1176397,190970,48715,349690,673887,1648782,1010556,1165786,937247,986578,798663};
-//        System.out.println(a.length);
-//        System.out.println(new FindK().findKth(a, a.length, 24));
-//        System.out.println("------------------");
-        int[] b = new int[]{2,4,1,6,4,2,7};
-        quickSort(a,0,a.length-1);
-        for (int i : a) {
-            System.out.println(i);
-        }
+        System.out.println(a.length);
+        System.out.println(new FindK().findKth(a, a.length, 24));
     }
 }
