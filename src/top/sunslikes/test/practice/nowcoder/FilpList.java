@@ -67,9 +67,7 @@ public class FilpList {
         ListNode now = null;
         int[] a = {1,2,3,4,5};
         for (int i: a) {
-            ListNode tmp = new ListNode();
-            tmp.val = i;
-            tmp.next = null;
+            ListNode tmp = new ListNode(i);
             if (head == null) {
                 head = now = tmp;
             } else {

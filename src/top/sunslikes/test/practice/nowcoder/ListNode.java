@@ -1,8 +1,13 @@
 package top.sunslikes.test.practice.nowcoder;
 
 public class ListNode {
-    int val;
-    ListNode next = null;
+    public int val;
+    public ListNode next;
+
+    ListNode(int x) {
+        this.val = x;
+        this.next = null;
+    }
 
     @Override
     public String toString() {

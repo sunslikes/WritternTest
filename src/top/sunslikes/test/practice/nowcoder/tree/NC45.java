@@ -1,4 +1,4 @@
-package top.sunslikes.test.practice.nowcoder;
+package top.sunslikes.test.practice.nowcoder.tree;
 
 /*
  * public class TreeNode {
