@@ -5,6 +5,12 @@ package top.sunslikes.test.practice.nowcoder.tree;
     TreeNode left = null;
     TreeNode right = null;
 
+    public TreeNode(int val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+    }
+
      public TreeNode(int val, TreeNode left, TreeNode right) {
          this.val = val;
          this.left = left;
